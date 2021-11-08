@@ -2,7 +2,6 @@ package com.f21ritchie.shiftscheduler;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,13 +42,13 @@ public class Main_Employee extends Fragment implements View.OnClickListener, Rec
         database = new Database(getContext());
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.frag_employees, container, false);
-        bt_add = (Button) view.findViewById(R.id.bt_add);
+        View view = inflater.inflate(R.layout.frag_employee, container, false);
+        bt_add = view.findViewById(R.id.bt_add);
         bt_add.setOnClickListener(this);
 
-        et_fname = (EditText) view.findViewById(R.id.et_fname);
-        et_lname = (EditText) view.findViewById(R.id.et_lname);
-        et_email = (EditText) view.findViewById(R.id.et_email);
+        et_fname = view.findViewById(R.id.et_fname);
+        et_lname = view.findViewById(R.id.et_lname);
+        et_email = view.findViewById(R.id.et_email);
 
         list = database.getAllEmployees();
         rv_emp = (RecyclerView) view.findViewById(R.id.rv_emp);
