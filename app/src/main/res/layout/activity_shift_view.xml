@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         app:cardBackgroundColor="@color/pastel_dark_blue"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@id/rv_shiftAM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_selectedDate">
@@ -29,11 +28,11 @@
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_shiftAM"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/cv_shiftPM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_shiftAM" />
@@ -43,10 +42,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         app:cardBackgroundColor="@color/pastel_dark_blue"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@id/rv_shiftPM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_shiftAM">
@@ -62,38 +62,48 @@
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_shiftPM"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/cl_colorCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_shiftPM" />
 
-    <Button
-        android:id="@+id/bt_editAM"
-        android:layout_width="130dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_buttonEditShift"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/EditOpening"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <Button
-        android:id="@+id/bt_editPM"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
-        android:text="@string/EditClosing"
-        android:textAlignment="center"
-        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_colorCode">
+
+        <Button
+            android:id="@+id/bt_editAM"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/EditOpening"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/bt_editPM"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_editPM"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/EditClosing"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/bt_editAM"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_selectedDate"
@@ -103,15 +113,18 @@
         android:textColor="@color/pastel_dark_blue"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/cv_shiftAM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
+        android:id="@+id/cl_colorCode"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_buttonEditShift"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_shiftPM">
 
@@ -122,19 +135,21 @@
             android:layout_marginBottom="1dp"
             app:cardBackgroundColor="@color/light_pink"
             app:cardCornerRadius="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_nottrained"
-            app:layout_constraintEnd_toStartOf="@+id/tv_trained"
+            app:layout_constraintBottom_toTopOf="@id/cv_nottrained"
+            app:layout_constraintEnd_toStartOf="@id/tv_trained"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_trained"
-            android:layout_width="80dp"
-            android:layout_height="16dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="  Trained"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_nottrained"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cv_trained"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
@@ -144,20 +159,21 @@
             app:cardBackgroundColor="@color/light_blue"
             app:cardCornerRadius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_nottrained"
+            app:layout_constraintEnd_toStartOf="@id/tv_nottrained"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_trained" />
+            app:layout_constraintTop_toBottomOf="@id/cv_trained" />
 
         <TextView
             android:id="@+id/tv_nottrained"
-            android:layout_width="80dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="  Not Trained"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_trained" />
+            app:layout_constraintStart_toEndOf="@id/cv_nottrained"
+            app:layout_constraintTop_toBottomOf="@id/tv_trained" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

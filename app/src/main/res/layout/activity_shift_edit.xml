@@ -10,10 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         app:cardBackgroundColor="@color/pastel_dark_blue"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@id/rv_assigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,7 +33,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_assigned"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/cv_avai"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_assigned" />
@@ -42,10 +44,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         app:cardBackgroundColor="@color/pastel_dark_blue"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@id/rv_avai"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_assigned">
@@ -64,9 +67,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_avai"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bt_saveShift"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_avai" />
 
@@ -76,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_avai" />
