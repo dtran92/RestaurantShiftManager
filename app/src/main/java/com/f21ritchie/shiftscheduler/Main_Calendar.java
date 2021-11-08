@@ -79,8 +79,11 @@ public class Main_Calendar extends Fragment implements CalendarAdapter.OnItemLis
         try {
         CalendarUtils.selectedDate = date;
         Intent intent = new Intent(getActivity(), ShiftViewActivity.class);
+        //
         String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault());
         String selectedDay = CalendarUtils.formattedDate(CalendarUtils.selectedDate);
+        String selectedMonth = CalendarUtils.formattedMonth(CalendarUtils.selectedDate);
+
         Date clickedDate = new Date(selectedDay,dayOfWeek);
         if (!dateList.contains(clickedDate)) {
             dateList.add(clickedDate);
@@ -88,6 +91,8 @@ public class Main_Calendar extends Fragment implements CalendarAdapter.OnItemLis
         }
         intent.putExtra("DayOfWeek", dayOfWeek);
         intent.putExtra("SelectedDate", selectedDay);
+        intent.putExtra("SelectedMonth", selectedMonth);
+
         startActivity(intent);
         getActivity().finish();
         }

@@ -47,6 +47,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String SHIFT_DATE = "DATE";
     public static final String SHIFT_TYPE = "TYPE";
     public static final String SHIFT_EMPID = "EMP_ID";
+    public static final String SHIFT_MONTH = "MONTH";
 
     public Database(@Nullable Context context) {
         super(context, "database.db", null, 1);
@@ -90,6 +91,7 @@ public class Database extends SQLiteOpenHelper {
                 + SHIFT_DATE + " TEXT, "
                 + SHIFT_TYPE + " TEXT, "
                 + SHIFT_EMPID + " INTEGER, "
+                + SHIFT_MONTH + " TEXT, "
                 + "PRIMARY KEY (" + SHIFT_DATE + ", " + SHIFT_TYPE + ", " +  SHIFT_EMPID + "))";
         sqLiteDatabase.execSQL(ShiftTable);
     }
@@ -255,11 +257,12 @@ public class Database extends SQLiteOpenHelper {
     }
 
     //SHIFT
-    public void addOneEmpToShift(Employee employee, String date, String AMPM) {
+    public void addOneEmpToShift(Employee employee, String date, String AMPM, String month) {
         database = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(SHIFT_DATE, date);
         cv.put(SHIFT_TYPE, AMPM);
+        cv.put(SHIFT_MONTH, month);
         cv.put(SHIFT_EMPID, employee.getId());
         database.insert(SHIFT_TABLE, null, cv);
     }

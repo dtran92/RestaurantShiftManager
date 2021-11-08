@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CalendarUtils
 {
@@ -76,5 +78,9 @@ public class CalendarUtils
         }
 
         return null;
+    }
+
+    public static String formattedMonth(LocalDate date) {
+        return date.getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault());
     }
 }

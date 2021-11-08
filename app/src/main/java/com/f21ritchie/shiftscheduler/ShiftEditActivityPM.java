@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ShiftEditActivityPM extends AppCompatActivity implements RecyclerAdapterColourPMAvai.OnEmployeeListener,
         RecyclerAdapterColourPMAssigned.OnEmployeeListener, View.OnClickListener {
-    String dayOfWeek, selectedDate;
+    String dayOfWeek, selectedDate, selectedMonth;
     RecyclerView rv_avai, rv_assigned;
     Button bt_saveShift;
     RecyclerAdapterColourPMAvai recyclerAdapter_avai;
@@ -38,6 +38,7 @@ public class ShiftEditActivityPM extends AppCompatActivity implements RecyclerAd
 
         dayOfWeek = getIntent().getExtras().getString("DayOfWeek");
         selectedDate = getIntent().getExtras().getString("SelectedDate");
+        selectedMonth = getIntent().getExtras().getString("SelectedMonth");
 
         rv_avai = findViewById(R.id.rv_avai);
         rv_assigned = findViewById(R.id.rv_assigned);
@@ -68,7 +69,7 @@ public class ShiftEditActivityPM extends AppCompatActivity implements RecyclerAd
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        database.addOneEmpToShift(selectedEmp, selectedDate, "PM");
+                        database.addOneEmpToShift(selectedEmp, selectedDate, "PM", selectedMonth);
                         setUpRecyclerView();
                     }
                 })

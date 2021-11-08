@@ -19,7 +19,7 @@ import com.f21ritchie.shiftscheduler.Adapters.RecyclerAdapterColourPMAssigned;
 import java.util.List;
 
 public class ShiftViewActivity extends AppCompatActivity implements View.OnClickListener{
-    String dayOfWeek, selectedDate;
+    String dayOfWeek, selectedDate, selectedMonth;
     RecyclerView rv_AM, rv_PM;
     Button bt_editAM, bt_editPM;
     RecyclerAdapterColourAMAssigned recyclerAdapter_AMassigned;
@@ -36,6 +36,7 @@ public class ShiftViewActivity extends AppCompatActivity implements View.OnClick
 
         dayOfWeek = getIntent().getExtras().getString("DayOfWeek");
         selectedDate = getIntent().getExtras().getString("SelectedDate");
+        selectedMonth = getIntent().getExtras().getString("SelectedMonth");
 
         tv_selectedDate = findViewById(R.id.tv_selectedDate);
         String text = dayOfWeek + ", " + selectedDate;
@@ -71,6 +72,7 @@ public class ShiftViewActivity extends AppCompatActivity implements View.OnClick
                 Intent intent = new Intent(this, ShiftEditActivityAM.class);
                 intent.putExtra("SelectedDate", selectedDate);
                 intent.putExtra("DayOfWeek", dayOfWeek);
+                intent.putExtra("SelectedMonth", selectedMonth);
                 startActivity(intent);
                 finish();
         }
@@ -79,6 +81,7 @@ public class ShiftViewActivity extends AppCompatActivity implements View.OnClick
                 Intent intent = new Intent(this, ShiftEditActivityPM.class);
                 intent.putExtra("SelectedDate", selectedDate);
                 intent.putExtra("DayOfWeek", dayOfWeek);
+                intent.putExtra("SelectedMonth", selectedMonth);
                 startActivity(intent);
                 finish();
         }
