@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_namev2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Switch
+        android:id="@+id/mon_AMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Opening"
+        app:layout_constraintEnd_toStartOf="@+id/mon_PMv2"
+        app:layout_constraintStart_toEndOf="@+id/monv2"
+        app:layout_constraintTop_toBottomOf="@+id/et_newemailv2"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <ToggleButton
+        android:id="@+id/trained_pmv2"
+        android:layout_width="75dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/tooglebutton"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textOff="NOT Closing Trained"
+        android:textOn="Closing Trained"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sun_AMv2"
+        tools:ignore="MissingConstraints" />
+
+    <ToggleButton
+        android:id="@+id/trained_amv2"
+        android:layout_width="75dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/tooglebutton"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textOff="NOT Opening Trained"
+        android:textOn="Opening Trained"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sun_AMv2"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/monv2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Mon"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_newemailv2" />
+
+    <Switch
+        android:id="@+id/tue_AMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Opening"
+        app:layout_constraintEnd_toStartOf="@+id/tue_PMv2"
+        app:layout_constraintStart_toEndOf="@+id/tuev2"
+        app:layout_constraintTop_toBottomOf="@+id/mon_AMv2"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Switch
+        android:id="@+id/sat_PMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:text="Closing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fri_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Switch
+        android:id="@+id/sun_AMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Opening"
+        app:layout_constraintEnd_toStartOf="@+id/sun_PMv2"
+        app:layout_constraintStart_toEndOf="@+id/sunv2"
+        app:layout_constraintTop_toBottomOf="@+id/sat_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Switch
+        android:id="@+id/thu_AMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Opening"
+        app:layout_constraintEnd_toStartOf="@+id/thu_PMv2"
+        app:layout_constraintStart_toEndOf="@+id/thuv2"
+        app:layout_constraintTop_toBottomOf="@+id/wed_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+
+    <Switch
+        android:id="@+id/thu_PMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:text="Closing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wed_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Switch
+        android:id="@+id/wed_AMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Opening"
+        app:layout_constraintEnd_toStartOf="@+id/wed_PMv2"
+        app:layout_constraintStart_toEndOf="@+id/wedv2"
+        app:layout_constraintTop_toBottomOf="@+id/tue_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Switch
+        android:id="@+id/sat_AMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Opening"
+        app:layout_constraintEnd_toStartOf="@+id/sat_PMv2"
+        app:layout_constraintStart_toEndOf="@+id/satv2"
+        app:layout_constraintTop_toBottomOf="@+id/fri_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Switch
+        android:id="@+id/fri_PMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:text="Closing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thu_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <TextView
+        android:id="@+id/thuv2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Thu"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wed_AMv2"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tuev2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Tue"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mon_AMv2" />
+
+    <TextView
+        android:id="@+id/wedv2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Wed"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tue_AMv2"
+        tools:ignore="MissingConstraints" />
+
+    <Switch
+        android:id="@+id/wed_PMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:text="Closing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tue_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <TextView
+        android:id="@+id/friv2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Fri"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thu_AMv2"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/satv2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Sat"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fri_AMv2"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/sunv2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Sun"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sat_AMv2"
+        tools:ignore="MissingConstraints" />
+
+    <Switch
+        android:id="@+id/fri_AMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Opening"
+        app:layout_constraintEnd_toStartOf="@+id/fri_PMv2"
+        app:layout_constraintStart_toEndOf="@+id/friv2"
+        app:layout_constraintTop_toBottomOf="@+id/thu_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Switch
+        android:id="@+id/mon_PMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:text="Closing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_newemailv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Switch
+        android:id="@+id/tue_PMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:text="Closing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mon_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Switch
+        android:id="@+id/sun_PMv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:text="Closing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sat_AMv2"
+        tools:ignore="MissingConstraints"
+        android:trackTint="@drawable/track"
+        android:thumbTint="@drawable/thumb"/>
+
+    <Button
+        android:id="@+id/bt_savev2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="90dp"
+        android:text="save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sun_AMv2" />
+
+    <EditText
+        android:id="@+id/et_newemailv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_namev2" />
+
+    <Button
+        android:id="@+id/bt_cancelv2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="80dp"
+        android:text="CANCEL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sun_AMv2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

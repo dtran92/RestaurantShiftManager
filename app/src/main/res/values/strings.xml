@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Shift Scheduler</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="FirstName">First Name</string>
+    <string name="EmailAddress">Email Address</string>
+    <string name="LastName">Last Name</string>
+    <string name="TrainYet">Trained (AM/PM/BOTH/NONE)</string>
+    <string name="forward"><![CDATA[->]]></string>
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="EditOpening">Edit Opening</string>
+    <string name="EditClosing">Edit Closing</string>
+    <string name="closing">CLOSING</string>
+    <string name="opening">OPENING</string>
+    <string name="assigned">ASSIGNED</string>
+    <string name="available">AVAILABLE</string>
+
+    <string-array name="days_of_the_week">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+</resources>
