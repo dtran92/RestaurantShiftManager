@@ -5,48 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_infoEdit"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_namev2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/pastel_dark_blue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/et_newemailv2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_newemailv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textColor="@color/pastel_dark_blue"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/cl_avaiEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_namev2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/et_newemailv2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/et_newemailv2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_namev2" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_trainedEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/cl_buttonEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_avaiEdit">
+        app:layout_constraintTop_toBottomOf="@+id/tv_namev2" />
 
         <ToggleButton
             android:id="@+id/trained_pmv2"
@@ -57,10 +40,10 @@
             android:textColor="@color/white"
             android:textOff="NOT Closing Trained"
             android:textOn="Closing Trained"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bt_cancelv2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/trained_amv2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/cl_avaiEdit" />
 
         <ToggleButton
             android:id="@+id/trained_amv2"
@@ -71,20 +54,10 @@
             android:textColor="@color/white"
             android:textOff="NOT Opening Trained"
             android:textOn="Opening Trained"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bt_savev2"
             app:layout_constraintEnd_toStartOf="@id/trained_pmv2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_buttonEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_trainedEdit">
+            app:layout_constraintTop_toBottomOf="@id/cl_avaiEdit" />
 
         <Button
             android:id="@+id/bt_savev2"
@@ -94,8 +67,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bt_cancelv2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toBottomOf="@id/trained_amv2" />
 
         <Button
             android:id="@+id/bt_cancelv2"
@@ -105,17 +77,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/bt_savev2"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/trained_pmv2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_avaiEdit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/cl_trainedEdit"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/trained_amv2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_infoEdit">
+        app:layout_constraintTop_toBottomOf="@id/et_newemailv2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_mon"
