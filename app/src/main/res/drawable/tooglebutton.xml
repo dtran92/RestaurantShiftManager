@@ -3,6 +3,5 @@
     <item android:drawable="@drawable/togglebutton_on"
         android:state_checked="true" />
     <item android:drawable="@drawable/togglebutton_off"
-        android:state_checked="false"
-        />
+        android:state_checked="false" />
 </selector>

@@ -8,8 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Database extends SQLiteOpenHelper {
     private static SQLiteDatabase database;
@@ -39,15 +43,17 @@ public class Database extends SQLiteOpenHelper {
 
     // Date Table
     public static final String DATE_TABLE = "DATE_TABLE";
-    public static final String DATE_ID = "DATE";
-    public static final String DATE_OF_WEEK = "DateOfWeek";
+    public static final String DATE_DATE = "DATE";
+    public static final String DATE_OF_WEEK = "DAYOFWEEK";
+    public static final String DATE_MONTH = "MONTH";
+    public static final String DATE_YEAR = "YEAR";
+    public static final String DATE_BUSY = "BUSY";
 
     // Shift Table
     public static final String SHIFT_TABLE = "SHIFT_TABLE";
     public static final String SHIFT_DATE = "DATE";
     public static final String SHIFT_TYPE = "TYPE";
     public static final String SHIFT_EMPID = "EMP_ID";
-    public static final String SHIFT_MONTH = "MONTH";
 
     public Database(@Nullable Context context) {
         super(context, "database.db", null, 1);
@@ -81,8 +87,12 @@ public class Database extends SQLiteOpenHelper {
 
         //create Date table
         String DateTable = "CREATE TABLE "
-                + DATE_TABLE + "(" + DATE_ID + " TEXT PRIMARY KEY, "
-                + DATE_OF_WEEK + " TEXT)";
+                + DATE_TABLE + "("
+                + DATE_DATE + " TEXT PRIMARY KEY, "
+                + DATE_OF_WEEK + " TEXT, "
+                + DATE_BUSY + " TEXT, "
+                + DATE_MONTH + " TEXT, "
+                + DATE_YEAR + " TEXT)";
         sqLiteDatabase.execSQL(DateTable);
 
         //create Shift Table
@@ -91,8 +101,7 @@ public class Database extends SQLiteOpenHelper {
                 + SHIFT_DATE + " TEXT, "
                 + SHIFT_TYPE + " TEXT, "
                 + SHIFT_EMPID + " INTEGER, "
-                + SHIFT_MONTH + " TEXT, "
-                + "PRIMARY KEY (" + SHIFT_DATE + ", " + SHIFT_TYPE + ", " +  SHIFT_EMPID + "))";
+                + "PRIMARY KEY (" + SHIFT_DATE + ", " + SHIFT_TYPE + ", " + SHIFT_EMPID + "))";
         sqLiteDatabase.execSQL(ShiftTable);
     }
 
@@ -196,8 +205,10 @@ public class Database extends SQLiteOpenHelper {
         database.update(Database.EMPLOYEE_TABLE, cv, Database.EMP_ID + " = ?", new String[]{String.valueOf(employee.getId())});
     }
 
-    public List<Employee> getAvaiEmp(String date, String dayOfWeek, String AMPM) {
+    public List<Employee> getAvaiEmp(LocalDate selectedDate, String AMPM) {
         database = this.getReadableDatabase();
+
+        String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault());
 
         int col_day = 0;
         String check;
@@ -223,14 +234,17 @@ public class Database extends SQLiteOpenHelper {
                 + "SELECT ID, FIRSTNAME, LASTNAME, EMAIL, TrainedAM, TrainedPM "
                 + ", MonAM, MonPM, TueAM, TuePM, WedAM, WedPM, ThuAM, ThuPM, FriAM, FriPM, SatAM, SatPM, SunAM, SunPM "
                 + "FROM EMPLOYEE_TABLE JOIN SHIFT_TABLE ON "
-                + "EMPLOYEE_TABLE.ID = SHIFT_TABLE.EMP_ID WHERE SHIFT_TABLE.DATE = " + "'" + date + "'"
+                + "EMPLOYEE_TABLE.ID = SHIFT_TABLE.EMP_ID WHERE SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(selectedDate) + "'"
                 + " AND " + "SHIFT_TABLE.TYPE = " + "'" + AMPM + "'";
         Cursor result = database.rawQuery(query, null);
 
-            if (result.moveToFirst()) {
+        if (result.moveToFirst()) {
             do {
                 check = result.getString(col_day);
-                if (!check.equals("Y")) {continue;};
+                if (!check.equals("Y")) {
+                    continue;
+                }
+                ;
                 int empID = result.getInt(0);
                 String empFName = result.getString(1);
                 String empLName = result.getString(2);
@@ -250,38 +264,87 @@ public class Database extends SQLiteOpenHelper {
 
     public void deleteOneEmployee(Employee employee) {
         database = this.getWritableDatabase();
-        String query = "DELETE FROM " +  EMPLOYEE_TABLE + " WHERE " + EMP_ID + " = " + employee.getId();
+        String query = "DELETE FROM " + EMPLOYEE_TABLE + " WHERE " + EMP_ID + " = " + employee.getId();
         System.out.println(query);
         Cursor result = database.rawQuery(query, null);
         result.moveToFirst();
     }
 
+    public Employee getOneEmployee(int id) {
+        database = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + EMPLOYEE_TABLE + " WHERE " + EMP_ID + " = " + id;
+        Cursor result = database.rawQuery(query, null);
+
+        if (result.getCount() == 0) {
+            Employee employee = new Employee();
+            return employee;
+        } else {
+            result.moveToFirst();
+            int empID = result.getInt(0);
+            String empFName = result.getString(1);
+            String empLName = result.getString(2);
+            String empEmail = result.getString(3);
+            String empTrainedAM = result.getString(4);
+            String empTrainedPM = result.getString(5);
+            String empmonAM = result.getString(6);
+            String empmonPM = result.getString(7);
+            String emptueAM = result.getString(8);
+            String emptuePM = result.getString(9);
+            String empwedAM = result.getString(10);
+            String empwedPM = result.getString(11);
+            String empthuAM = result.getString(12);
+            String empthuPM = result.getString(13);
+            String empfriAM = result.getString(14);
+            String empfriPM = result.getString(15);
+            String empsatAM = result.getString(16);
+            String empsatPM = result.getString(17);
+            String empsunAM = result.getString(18);
+            String empsunPM = result.getString(19);
+            Employee employee = new Employee(empID, empFName, empLName, empEmail,
+                    empTrainedAM, empTrainedPM, empmonAM, empmonPM, emptueAM, emptuePM,
+                    empwedAM, empwedPM, empthuAM, empthuPM, empfriAM, empfriPM,
+                    empsatAM, empsatPM, empsunAM, empsunPM);
+            return employee;
+        }
+    }
+
+    public boolean checkExist(String updatedFname, String updatedLname, String updatedEmail) {
+        database = this.getReadableDatabase();
+        String query = "SELECT * FROM " + EMPLOYEE_TABLE + " WHERE "
+                + EMP_FIRSTNAME + " = " + "'" + updatedFname + "'" + " AND "
+                + EMP_LASTNAME + " = " + "'" + updatedLname + "'" + " AND "
+                + EMP_EMAIL + " = " + "'" + updatedEmail + "'";
+        Cursor result = database.rawQuery(query, null);
+        if (result.getCount() > 0) return true;
+        return false;
+    }
+
     //SHIFT
-    public void addOneEmpToShift(Employee employee, String date, String AMPM, String month) {
+    public void addOneEmpToShift(Employee employee, LocalDate selectedDate, String AMPM) {
         database = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(SHIFT_DATE, date);
+        cv.put(SHIFT_DATE, CalendarUtils.formattedDate(selectedDate));
         cv.put(SHIFT_TYPE, AMPM);
-        cv.put(SHIFT_MONTH, month);
         cv.put(SHIFT_EMPID, employee.getId());
         database.insert(SHIFT_TABLE, null, cv);
     }
 
-    public void deleteOneEmpFromShift(Employee employee, String date, String AMPM) {
+    public void deleteOneEmpFromShift(Employee employee, LocalDate selectedDate, String AMPM) {
         database = this.getWritableDatabase();
         String query = "DELETE FROM " +  SHIFT_TABLE + " WHERE " + SHIFT_EMPID + " = " + employee.getId() +
-                " AND " + SHIFT_DATE + " = " + "'" + date + "'" +
+                " AND " + SHIFT_DATE + " = " + "'" + CalendarUtils.formattedDate(selectedDate) + "'" +
                 " AND " + SHIFT_TYPE + " = " + "'" + AMPM + "'";
         Cursor result = database.rawQuery(query, null);
         result.moveToFirst();
     }
 
-    public List<Employee> getEmpForSelectShift(String date, String AMPM) {
+    public List<Employee> getEmpForSelectShift(LocalDate selectedDate, String AMPM) {
         database = this.getReadableDatabase();
         List<Employee> empList = new ArrayList<>();
 
         String query = "SELECT ID, FIRSTNAME, LASTNAME, EMAIL, TrainedAM, TrainedPM FROM EMPLOYEE_TABLE JOIN SHIFT_TABLE ON "
-                + "EMPLOYEE_TABLE.ID = SHIFT_TABLE.EMP_ID WHERE SHIFT_TABLE.DATE = " + "'" + date + "'"
+                + "EMPLOYEE_TABLE.ID = SHIFT_TABLE.EMP_ID WHERE SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(selectedDate) + "'"
                 + " AND " + "SHIFT_TABLE.TYPE = " + "'" + AMPM + "'";
         Cursor result = database.rawQuery(query, null);
 
@@ -302,36 +365,52 @@ public class Database extends SQLiteOpenHelper {
         return empList;
     }
 
-
     //DATE
-    public List<Date> getAllDate() {
-        database = this.getReadableDatabase();
-        List<Date> dateList = new ArrayList<>();
-        String query = "SELECT * FROM " + DATE_TABLE;
-        Cursor result = database.rawQuery(query, null);
-
-        // moveToFirst() returns true if there are values selected
-        if (result.moveToFirst()) {
-            // loop through result, create new employee object and add to the return list
-            do {
-                String dmy = result.getString(0);
-                String dow = result.getString(1);
-                Date date = new Date(dmy, dow);
-                dateList.add(date);
-            }
-            while (result.moveToNext());
-        }
-        result.close();
-        return dateList;
-    }
-
-    public void addOneDate(Date date) {
+    public void addOneDate(LocalDate localDate, String busy) {
         database = this.getWritableDatabase();
+
         ContentValues cv = new ContentValues();
-        cv.put(DATE_ID, date.getDateMonthYear());
-        cv.put(DATE_OF_WEEK, date.getDayOfWeek());
+        cv.put(DATE_DATE, CalendarUtils.formattedDate(localDate));
+        cv.put(DATE_OF_WEEK, localDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()));
+        cv.put(DATE_MONTH, CalendarUtils.formattedMonth(localDate));
+        cv.put(DATE_YEAR, localDate.getYear());
+        cv.put(DATE_BUSY, busy);
         database.insert(DATE_TABLE, null, cv);
     }
 
+    public boolean isBusy(LocalDate localDate) {
+        database = this.getWritableDatabase();
 
+        String query = "SELECT * FROM " + DATE_TABLE + " WHERE DATE_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(localDate) + "'";
+
+        Cursor result = database.rawQuery(query, null);
+
+        // no date for this in the database
+        if (result.getCount() == 0) {
+            if (localDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) || localDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+                addOneDate(localDate, "Y");
+                return true;
+            }
+            else {
+                addOneDate(localDate, "N");
+                return false;
+            }
+        }
+        else {
+            result.moveToFirst();
+            if (result.getString(result.getColumnIndex(DATE_BUSY)).equals("Y")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    public void updateDate(LocalDate selectedDate, String isBusy) {
+        database = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(DATE_BUSY, isBusy);
+        database.update(DATE_TABLE, cv, DATE_DATE + " = ?", new String[]{String.valueOf(CalendarUtils.formattedDate(selectedDate))});
+    }
 }

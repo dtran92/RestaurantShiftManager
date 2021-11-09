@@ -35,13 +35,11 @@ public class Main_Calendar extends Fragment implements CalendarAdapter.OnItemLis
     Context thiscontext;
     Button bt_backward, bt_forward, bt_viewV2;
     Database database;
-    List<Date> dateList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = new Database(getContext());
-        dateList = database.getAllDate();
     }
 
     @Nullable
@@ -76,28 +74,15 @@ public class Main_Calendar extends Fragment implements CalendarAdapter.OnItemLis
     // Click to open new activity to view shifts for selected date
     @Override
     public void onItemClick(int position, LocalDate date) {
-        try {
+
+        if (date == null) {}
+        else {
+
         CalendarUtils.selectedDate = date;
         Intent intent = new Intent(getActivity(), ShiftViewActivity.class);
-        //
-        String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault());
-        String selectedDay = CalendarUtils.formattedDate(CalendarUtils.selectedDate);
-        String selectedMonth = CalendarUtils.formattedMonth(CalendarUtils.selectedDate);
-
-        Date clickedDate = new Date(selectedDay,dayOfWeek);
-        if (!dateList.contains(clickedDate)) {
-            dateList.add(clickedDate);
-            database.addOneDate(clickedDate);
-        }
-        intent.putExtra("DayOfWeek", dayOfWeek);
-        intent.putExtra("SelectedDate", selectedDay);
-        intent.putExtra("SelectedMonth", selectedMonth);
 
         startActivity(intent);
-        getActivity().finish();
-        }
-
-        catch (NullPointerException exception) {}
+        getActivity().finish();}
     }
 
     @Override

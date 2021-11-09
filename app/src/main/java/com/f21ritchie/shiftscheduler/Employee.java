@@ -59,6 +59,8 @@ public class Employee {
         this.sun_PM = sun_PM;
     }
 
+    public Employee() {}
+
     // getters and setters
     public String getName() {
         return firstName + " " + lastName;

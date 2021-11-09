@@ -46,6 +46,9 @@ public class RecyclerAdapterColourPMAssigned extends RecyclerView.Adapter<Recycl
         if (empList.get(position).getTrained_pm().equals("Y")) {
             cv_emp.setCardBackgroundColor(Color.parseColor("#FFB5B5"));
         }
+        else {
+            cv_emp.setCardBackgroundColor(Color.parseColor("#A2D1E6"));
+        }
     }
 
     @Override

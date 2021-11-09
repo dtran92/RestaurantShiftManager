@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.f21ritchie.shiftscheduler.CalendarUtils;
-import com.f21ritchie.shiftscheduler.CalendarViewHolder;
 import com.example.shiftscheduler.R;
 
 import java.time.LocalDate;
@@ -42,16 +41,17 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         final LocalDate date = days.get(position);
-        if(date == null)
+        if (date == null)
             holder.dayOfMonth.setText("");
-        else
-        {
+        else {
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
             if(date.equals(CalendarUtils.selectedDate))
                 holder.parentView.setBackgroundColor(Color.LTGRAY);
+            if (holder.database.isBusy(date)) {
+                holder.dayOfMonth.setTextColor(Color.parseColor("#FF6961"));
+            }
         }
     }
 

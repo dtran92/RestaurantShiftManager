@@ -31,25 +31,27 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
         database = new Database(this);
 
         int id = getIntent().getExtras().getInt("id");
-        String fname = getIntent().getExtras().getString("fname");
-        String lname = getIntent().getExtras().getString("lname");
-        String email = getIntent().getExtras().getString("email");
-        String currMonAM = getIntent().getExtras().getString("currMonAM");
-        String currMonPM = getIntent().getExtras().getString("currMonPM");
-        String currTueAM = getIntent().getExtras().getString("currTueAM");
-        String currTuePM = getIntent().getExtras().getString("currTuePM");
-        String currWedAM = getIntent().getExtras().getString("currWedAM");
-        String currWedPM = getIntent().getExtras().getString("currWedPM");
-        String currThuAM = getIntent().getExtras().getString("currThuAM");
-        String currThuPM = getIntent().getExtras().getString("currThuPM");
-        String currFriAM = getIntent().getExtras().getString("currFriAM");
-        String currFriPM = getIntent().getExtras().getString("currFriPM");
-        String currSatAM = getIntent().getExtras().getString("currSatAM");
-        String currSatPM = getIntent().getExtras().getString("currSatPM");
-        String currSunAM = getIntent().getExtras().getString("currSunAM");
-        String currSunPM = getIntent().getExtras().getString("currSunPM");
-        String currTrainedAM = getIntent().getExtras().getString("currTrainedAM");
-        String currTrainedPM = getIntent().getExtras().getString("currTrainedPM");
+        Employee selectedEmp = database.getOneEmployee(id);
+
+        String fname = selectedEmp.getFirstName();
+        String lname = selectedEmp.getLastName();
+        String email = selectedEmp.getEmail();
+        String currMonAM = selectedEmp.getMon_AM();
+        String currMonPM = selectedEmp.getMon_PM();
+        String currTueAM = selectedEmp.getTue_AM();
+        String currTuePM = selectedEmp.getTue_PM();
+        String currWedAM = selectedEmp.getWed_AM();
+        String currWedPM = selectedEmp.getWed_PM();
+        String currThuAM = selectedEmp.getThu_AM();
+        String currThuPM = selectedEmp.getThu_PM();
+        String currFriAM = selectedEmp.getFri_AM();
+        String currFriPM = selectedEmp.getFri_PM();
+        String currSatAM = selectedEmp.getSat_AM();
+        String currSatPM = selectedEmp.getSat_PM();
+        String currSunAM = selectedEmp.getSun_AM();
+        String currSunPM = selectedEmp.getSun_PM();
+        String currTrainedAM = selectedEmp.getTrained_am();
+        String currTrainedPM = selectedEmp.getTrained_pm();
 
         trained_am = findViewById(R.id.trained_amv2new);
         trained_pm = findViewById(R.id.trained_pmv2new);
@@ -119,9 +121,7 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
 
                 // id = -1 meaning adding new employee
                 if (id == -1) {
-                    if (checkMissing(updatedFname, updatedLname, updatedEmail) || checkDup(employee = new Employee(-1, updatedFname, updatedLname, updatedEmail,
-                            null, null, null, null, null, null, null, null,
-                            null, null, null, null, null, null, null, null))) {
+                    if (checkMissing(updatedFname, updatedLname, updatedEmail) || checkDup(updatedFname, updatedLname, updatedEmail)) {
                     } else {
                         database.addOneEmployee(new Employee(id, updatedFname, updatedLname, updatedEmail, trained_AM, trained_PM,
                                 monAM, monPM, tueAM, tuePM, wedAM, wedPM, thuAM, thuPM, friAM, friPM, satAM, satPM, sunAM, sunPM));
@@ -191,9 +191,8 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
         finish();
     }
 
-    public boolean checkDup(Employee employee) {
-        List<Employee> empList = database.getAllEmployees();
-        if (empList.contains(employee)) {
+    public boolean checkDup(String updatedFname, String updatedLname, String updatedEmail) {
+        if (database.checkExist(updatedFname, updatedLname, updatedEmail)) {
             new AlertDialog.Builder(this)
                     .setMessage("Employee already exist")
                     .setNegativeButton("OK", null).show();
@@ -210,5 +209,14 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("position", 1);
+        startActivity(intent);
+        finish();
     }
 }

@@ -101,31 +101,7 @@ public class Main_EmployeeV2 extends Fragment implements View.OnClickListener, R
     public void onEmployeeClick(int position) {
         Employee selectedEmployee = database.getAllEmployees().get(position);
         Intent intent = new Intent(getActivity(), EmployeeAddEditActivityV2.class);
-        String fname = selectedEmployee.getFirstName();
-        String lname = selectedEmployee.getLastName();
-        String email = selectedEmployee.getEmail();
-        int id = selectedEmployee.getId();
-        intent.putExtra("id", id);
-        intent.putExtra("fname", fname);
-        intent.putExtra("lname", lname);
-        intent.putExtra("email", email);
-        intent.putExtra("currTrainedAM", selectedEmployee.getTrained_am());
-        intent.putExtra("currTrainedPM", selectedEmployee.getTrained_pm());
-        intent.putExtra("currMonAM", selectedEmployee.getMon_AM());
-        intent.putExtra("currMonPM", selectedEmployee.getMon_PM());
-        intent.putExtra("currTueAM", selectedEmployee.getTue_AM());
-        intent.putExtra("currTuePM", selectedEmployee.getTue_PM());
-        intent.putExtra("currWedAM", selectedEmployee.getWed_AM());
-        intent.putExtra("currWedPM", selectedEmployee.getWed_PM());
-        intent.putExtra("currThuAM", selectedEmployee.getThu_AM());
-        intent.putExtra("currThuPM", selectedEmployee.getThu_PM());
-        intent.putExtra("currFriAM", selectedEmployee.getFri_AM());
-        intent.putExtra("currFriPM", selectedEmployee.getFri_PM());
-        intent.putExtra("currSatAM", selectedEmployee.getSat_AM());
-        intent.putExtra("currSatPM", selectedEmployee.getSat_PM());
-        intent.putExtra("currSunAM", selectedEmployee.getSun_AM());
-        intent.putExtra("currSunPM", selectedEmployee.getSun_PM());
-        intent.putExtra("purpose", "edit");
+        intent.putExtra("id", selectedEmployee.getId());
         startActivity(intent);
         getActivity().finish();
     }

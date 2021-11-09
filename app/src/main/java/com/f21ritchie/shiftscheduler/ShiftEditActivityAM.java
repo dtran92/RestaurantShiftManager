@@ -20,7 +20,6 @@ import java.util.List;
 
 public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAdapterColourAMAvai.OnEmployeeListener,
         RecyclerAdapterColourAMAssigned.OnEmployeeListener, View.OnClickListener {
-    String dayOfWeek, selectedDate, selectedMonth;
     RecyclerView rv_avai, rv_assigned;
     Button bt_saveShift;
     RecyclerAdapterColourAMAvai recyclerAdapter_avai;
@@ -35,10 +34,6 @@ public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAd
 
         database = new Database(this);
 
-        dayOfWeek = getIntent().getExtras().getString("DayOfWeek");
-        selectedDate = getIntent().getExtras().getString("SelectedDate");
-        selectedMonth = getIntent().getExtras().getString("SelectedMonth");
-
         rv_avai = findViewById(R.id.rv_avai);
         rv_assigned = findViewById(R.id.rv_assigned);
         setUpRecyclerView();
@@ -48,12 +43,12 @@ public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAd
     }
 
     void setUpRecyclerView() {
-        list_avai = database.getAvaiEmp(selectedDate, dayOfWeek, "AM");
+        list_avai = database.getAvaiEmp(CalendarUtils.selectedDate, "AM");
         rv_avai.setLayoutManager(new LinearLayoutManager(this));
         recyclerAdapter_avai = new RecyclerAdapterColourAMAvai(list_avai, this);
         rv_avai.setAdapter(recyclerAdapter_avai);
 
-        list_assigned = database.getEmpForSelectShift(selectedDate, "AM");
+        list_assigned = database.getEmpForSelectShift(CalendarUtils.selectedDate, "AM");
         rv_assigned.setLayoutManager(new LinearLayoutManager(this));
         recyclerAdapter_assigned = new RecyclerAdapterColourAMAssigned(list_assigned, this);
         rv_assigned.setAdapter(recyclerAdapter_assigned);
@@ -67,7 +62,7 @@ public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAd
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        database.addOneEmpToShift(selectedEmp, selectedDate, "AM", selectedMonth);
+                        database.addOneEmpToShift(selectedEmp, CalendarUtils.selectedDate, "AM");
                         setUpRecyclerView();
                     }
                 })
@@ -83,7 +78,7 @@ public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAd
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        database.deleteOneEmpFromShift(selectedEmp, selectedDate, "AM");
+                        database.deleteOneEmpFromShift(selectedEmp, CalendarUtils.selectedDate, "AM");
                         setUpRecyclerView();
                     }
                 })
@@ -96,8 +91,6 @@ public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAd
         switch (view.getId()) {
             case R.id.bt_saveShift:
                 Intent intent = new Intent(this, ShiftViewActivity.class);
-                intent.putExtra("DayOfWeek", dayOfWeek);
-                intent.putExtra("SelectedDate", selectedDate);
                 startActivity(intent);
                 finish();
         }
@@ -107,8 +100,6 @@ public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAd
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, ShiftViewActivity.class);
-        intent.putExtra("DayOfWeek", dayOfWeek);
-        intent.putExtra("SelectedDate", selectedDate);
         startActivity(intent);
         finish();
     }
