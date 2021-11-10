@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
+    private static Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tl_main);
         ViewPager2 viewPager2 = findViewById(R.id.vp2_main);
 
+        database = new Database(this);
 
         Main_ViewPagerAdapter adapter = new Main_ViewPagerAdapter(this);
 

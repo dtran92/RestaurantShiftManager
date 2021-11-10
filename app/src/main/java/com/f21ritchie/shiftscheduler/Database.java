@@ -36,10 +36,8 @@ public class Database extends SQLiteOpenHelper {
     public static final String EMP_THU_PM = "ThuPM";
     public static final String EMP_FRI_AM = "FriAM";
     public static final String EMP_FRI_PM = "FriPM";
-    public static final String EMP_SAT_AM = "SatAM";
-    public static final String EMP_SAT_PM = "SatPM";
-    public static final String EMP_SUN_AM = "SunAM";
-    public static final String EMP_SUN_PM = "SunPM";
+    public static final String EMP_SAT = "Sat";
+    public static final String EMP_SUN = "Sun";
 
     // Date Table
     public static final String DATE_TABLE = "DATE_TABLE";
@@ -79,10 +77,8 @@ public class Database extends SQLiteOpenHelper {
                 + EMP_THU_PM + " TEXT, "
                 + EMP_FRI_AM + " TEXT, "
                 + EMP_FRI_PM + " TEXT, "
-                + EMP_SAT_AM + " TEXT, "
-                + EMP_SAT_PM + " TEXT, "
-                + EMP_SUN_AM + " TEXT, "
-                + EMP_SUN_PM + " TEXT)";
+                + EMP_SAT + " TEXT, "
+                + EMP_SUN + " TEXT)";
         sqLiteDatabase.execSQL(employeeTable);
 
         //create Date table
@@ -139,14 +135,12 @@ public class Database extends SQLiteOpenHelper {
                 String empthuPM = result.getString(13);
                 String empfriAM = result.getString(14);
                 String empfriPM = result.getString(15);
-                String empsatAM = result.getString(16);
-                String empsatPM = result.getString(17);
-                String empsunAM = result.getString(18);
-                String empsunPM = result.getString(19);
+                String empsat = result.getString(16);
+                String empsun = result.getString(17);
                 Employee employee = new Employee(empID, empFName, empLName, empEmail,
                         empTrainedAM, empTrainedPM, empmonAM, empmonPM, emptueAM, emptuePM,
                         empwedAM, empwedPM, empthuAM, empthuPM, empfriAM, empfriPM,
-                        empsatAM, empsatPM, empsunAM, empsunPM);
+                        empsat, empsun);
                 empList.add(employee);
             }
             while (result.moveToNext());
@@ -175,10 +169,8 @@ public class Database extends SQLiteOpenHelper {
         cv.put(EMP_THU_PM, employee.getThu_PM());
         cv.put(EMP_FRI_AM, employee.getFri_AM());
         cv.put(EMP_FRI_PM, employee.getFri_PM());
-        cv.put(EMP_SAT_AM, employee.getSat_AM());
-        cv.put(EMP_SAT_PM, employee.getSat_PM());
-        cv.put(EMP_SUN_AM, employee.getSun_AM());
-        cv.put(EMP_SUN_PM, employee.getSun_PM());
+        cv.put(EMP_SAT, employee.getSat());
+        cv.put(EMP_SUN, employee.getSun());
         database.insert(EMPLOYEE_TABLE, null, cv);
     }
 
@@ -198,10 +190,8 @@ public class Database extends SQLiteOpenHelper {
         cv.put(EMP_THU_PM, employee.getThu_PM());
         cv.put(EMP_FRI_AM, employee.getFri_AM());
         cv.put(EMP_FRI_PM, employee.getFri_PM());
-        cv.put(EMP_SAT_AM, employee.getSat_AM());
-        cv.put(EMP_SAT_PM, employee.getSat_PM());
-        cv.put(EMP_SUN_AM, employee.getSun_AM());
-        cv.put(EMP_SUN_PM, employee.getSun_PM());
+        cv.put(EMP_SAT, employee.getSat());
+        cv.put(EMP_SUN, employee.getSun());
         database.update(Database.EMPLOYEE_TABLE, cv, Database.EMP_ID + " = ?", new String[]{String.valueOf(employee.getId())});
     }
 
@@ -223,16 +213,14 @@ public class Database extends SQLiteOpenHelper {
         if (dayOfWeek.equals("Thu") && AMPM.equals("PM")) col_day = 13;
         if (dayOfWeek.equals("Fri") && AMPM.equals("AM")) col_day = 14;
         if (dayOfWeek.equals("Fri") && AMPM.equals("PM")) col_day = 15;
-        if (dayOfWeek.equals("Sat") && AMPM.equals("AM")) col_day = 16;
-        if (dayOfWeek.equals("Sat") && AMPM.equals("PM")) col_day = 17;
-        if (dayOfWeek.equals("Sun") && AMPM.equals("AM")) col_day = 18;
-        if (dayOfWeek.equals("Sun") && AMPM.equals("PM")) col_day = 19;
+        if (dayOfWeek.equals("Sat")) col_day = 16;
+        if (dayOfWeek.equals("Sun")) col_day = 17;
 
         List<Employee> employeesList = new ArrayList<>();
 
         String query = "SELECT * FROM " + EMPLOYEE_TABLE + " EXCEPT "
                 + "SELECT ID, FIRSTNAME, LASTNAME, EMAIL, TrainedAM, TrainedPM "
-                + ", MonAM, MonPM, TueAM, TuePM, WedAM, WedPM, ThuAM, ThuPM, FriAM, FriPM, SatAM, SatPM, SunAM, SunPM "
+                + ", MonAM, MonPM, TueAM, TuePM, WedAM, WedPM, ThuAM, ThuPM, FriAM, FriPM, Sat, Sun "
                 + "FROM EMPLOYEE_TABLE JOIN SHIFT_TABLE ON "
                 + "EMPLOYEE_TABLE.ID = SHIFT_TABLE.EMP_ID WHERE SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(selectedDate) + "'"
                 + " AND " + "SHIFT_TABLE.TYPE = " + "'" + AMPM + "'";
@@ -268,16 +256,18 @@ public class Database extends SQLiteOpenHelper {
         System.out.println(query);
         Cursor result = database.rawQuery(query, null);
         result.moveToFirst();
+        result.close();
     }
 
     public Employee getOneEmployee(int id) {
         database = this.getReadableDatabase();
+        Employee employee;
 
         String query = "SELECT * FROM " + EMPLOYEE_TABLE + " WHERE " + EMP_ID + " = " + id;
         Cursor result = database.rawQuery(query, null);
 
         if (result.getCount() == 0) {
-            Employee employee = new Employee();
+            employee = new Employee();
             return employee;
         } else {
             result.moveToFirst();
@@ -297,16 +287,15 @@ public class Database extends SQLiteOpenHelper {
             String empthuPM = result.getString(13);
             String empfriAM = result.getString(14);
             String empfriPM = result.getString(15);
-            String empsatAM = result.getString(16);
-            String empsatPM = result.getString(17);
-            String empsunAM = result.getString(18);
-            String empsunPM = result.getString(19);
-            Employee employee = new Employee(empID, empFName, empLName, empEmail,
+            String empsat = result.getString(16);
+            String empsun = result.getString(17);
+            employee = new Employee(empID, empFName, empLName, empEmail,
                     empTrainedAM, empTrainedPM, empmonAM, empmonPM, emptueAM, emptuePM,
                     empwedAM, empwedPM, empthuAM, empthuPM, empfriAM, empfriPM,
-                    empsatAM, empsatPM, empsunAM, empsunPM);
-            return employee;
+                    empsat, empsun);
         }
+        result.close();
+        return employee;
     }
 
     public boolean checkExist(String updatedFname, String updatedLname, String updatedEmail) {
@@ -316,36 +305,40 @@ public class Database extends SQLiteOpenHelper {
                 + EMP_LASTNAME + " = " + "'" + updatedLname + "'" + " AND "
                 + EMP_EMAIL + " = " + "'" + updatedEmail + "'";
         Cursor result = database.rawQuery(query, null);
-        if (result.getCount() > 0) return true;
+        if (result.getCount() > 0) {
+            result.close();
+        return true;}
+        result.close();
         return false;
     }
 
     //SHIFT
-    public void addOneEmpToShift(Employee employee, LocalDate selectedDate, String AMPM) {
+    public void addOneEmpToShift(Employee employee, LocalDate selectedDate, String type) {
         database = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(SHIFT_DATE, CalendarUtils.formattedDate(selectedDate));
-        cv.put(SHIFT_TYPE, AMPM);
+        cv.put(SHIFT_TYPE, type);
         cv.put(SHIFT_EMPID, employee.getId());
         database.insert(SHIFT_TABLE, null, cv);
     }
 
-    public void deleteOneEmpFromShift(Employee employee, LocalDate selectedDate, String AMPM) {
+    public void deleteOneEmpFromShift(Employee employee, LocalDate selectedDate, String type) {
         database = this.getWritableDatabase();
         String query = "DELETE FROM " +  SHIFT_TABLE + " WHERE " + SHIFT_EMPID + " = " + employee.getId() +
                 " AND " + SHIFT_DATE + " = " + "'" + CalendarUtils.formattedDate(selectedDate) + "'" +
-                " AND " + SHIFT_TYPE + " = " + "'" + AMPM + "'";
+                " AND " + SHIFT_TYPE + " = " + "'" + type + "'";
         Cursor result = database.rawQuery(query, null);
         result.moveToFirst();
+        result.close();
     }
 
-    public List<Employee> getEmpForSelectShift(LocalDate selectedDate, String AMPM) {
+    public List<Employee> getEmpForSelectShift(LocalDate selectedDate, String type) {
         database = this.getReadableDatabase();
         List<Employee> empList = new ArrayList<>();
 
         String query = "SELECT ID, FIRSTNAME, LASTNAME, EMAIL, TrainedAM, TrainedPM FROM EMPLOYEE_TABLE JOIN SHIFT_TABLE ON "
                 + "EMPLOYEE_TABLE.ID = SHIFT_TABLE.EMP_ID WHERE SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(selectedDate) + "'"
-                + " AND " + "SHIFT_TABLE.TYPE = " + "'" + AMPM + "'";
+                + " AND " + "SHIFT_TABLE.TYPE = " + "'" + type + "'";
         Cursor result = database.rawQuery(query, null);
 
         if (result.moveToFirst()) {
@@ -387,22 +380,17 @@ public class Database extends SQLiteOpenHelper {
 
         // no date for this in the database
         if (result.getCount() == 0) {
-            if (localDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) || localDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-                //addOneDate(localDate, "Y");
-                return true;
-            }
-            else {
-                //addOneDate(localDate, "N");
                 return false;
             }
-        }
 
         else {
             result.moveToFirst();
             if (result.getString(result.getColumnIndex(DATE_BUSY)).equals("Y")) {
+                result.close();
                 return true;
             }
             else {
+                result.close();
                 return false;
             }
         }
@@ -428,26 +416,33 @@ public class Database extends SQLiteOpenHelper {
         else {
             updateDate(selectedDate, isBusy);
         }
+        result.close();
     }
 
     // check if both shifts are ready for a date
     public boolean isReadyDate (LocalDate date) {
         database = this.getReadableDatabase();
 
-        if (isReadyShift(date, "AM") && isReadyShift(date, "PM")) {
-            return true;
-        }
-        else return false;
+        // weekend
+        if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY) || date.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+            if (isReadyShiftWeekend(date, "F") && isReadyShiftWeekday(date, "F")) return true;
+            else {
+                return false;}}
+        // weekday
+        else {
+            if (isReadyShiftWeekday(date, "AM") && isReadyShiftWeekday(date, "PM")) return true;
+            else {
+                return false;}}
     }
 
-    public boolean isReadyShift (LocalDate date, String AMPM) {
+    public boolean isReadyShiftWeekday (LocalDate date, String type) {
         database = this.getReadableDatabase();
         String colCheck;
-        if (AMPM.equals("AM")) colCheck = "TrainedAM";
+        if (type.equals("AM")) colCheck = "TrainedAM";
         else colCheck = "TrainedPM";
 
         String query = "select * FROM SHIFT_TABLE join DATE_TABLE on SHIFT_TABLE.DATE = DATE_TABLE.DATE " +
-                "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + AMPM + "'";
+                "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + type + "'";
         Cursor result = database.rawQuery(query, null);
 
         // busy ==> at least 3 employees
@@ -457,11 +452,11 @@ public class Database extends SQLiteOpenHelper {
             // >=3 --> check if at least one is trained
                 query = "select ID from EMPLOYEE_TABLE where EMPLOYEE_TABLE.ID IN " +
                         "( select EMP_ID FROM SHIFT_TABLE join DATE_TABLE on SHIFT_TABLE.DATE = DATE_TABLE.DATE " +
-                        "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + AMPM + "')" + " and " + colCheck + " = 'Y'";
+                        "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + type + "')" + " and " + colCheck + " = 'Y'";
                 result = database.rawQuery(query, null);
                 // no trained emp for that shift
-                if (result.getCount() == 0) return false;
-                else return true;
+                if (result.getCount() == 0) {result.close(); return false;}
+                else {result.close(); return true;}
         }
 
         else {
@@ -469,11 +464,44 @@ public class Database extends SQLiteOpenHelper {
             // >=3 --> check if at least one is trained
             query = "select ID from EMPLOYEE_TABLE where EMPLOYEE_TABLE.ID IN " +
                     "( select EMP_ID FROM SHIFT_TABLE join DATE_TABLE on SHIFT_TABLE.DATE = DATE_TABLE.DATE " +
-                    "where SHIFT_TABLE.DATE = '01 November 2021' and SHIFT_TABLE.TYPE = 'AM') and " + colCheck + " = 'Y'";
+                    "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + type + "')"  + " and " + colCheck + " = 'Y'";
             result = database.rawQuery(query, null);
             // no trained emp for that shift
-            if (result.getCount() == 0) return false;
-            else return true;
+            if (result.getCount() == 0) {result.close(); return false;}
+            else {result.close(); return true;}
+        }
+    }
+
+    public boolean isReadyShiftWeekend (LocalDate date, String type) {
+        database = this.getReadableDatabase();
+
+        String query = "select * FROM SHIFT_TABLE join DATE_TABLE on SHIFT_TABLE.DATE = DATE_TABLE.DATE " +
+                "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + type + "'";
+        Cursor result = database.rawQuery(query, null);
+
+        // busy
+        if (isBusy(date)) {
+            // less than 3 for busy day
+            if (result.getCount() < 3) return false;
+            query = "select ID from EMPLOYEE_TABLE where EMPLOYEE_TABLE.ID IN " +
+                    "( select EMP_ID FROM SHIFT_TABLE join DATE_TABLE on SHIFT_TABLE.DATE = DATE_TABLE.DATE " +
+                    "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + type + "')"  +
+                    " and EMPLOYEE_TABLE.TrainedAM = 'Y' and EMPLOYEE_TABLE.TrainedPM = 'Y'";
+            result = database.rawQuery(query, null);
+            if (result.getCount() == 0) {result.close(); return false;}
+            else {result.close(); return true;}
+        }
+
+        //not busy
+        else {
+            // less than 2 for normal day
+            if (result.getCount() < 2) return false;
+            query = "select ID from EMPLOYEE_TABLE where EMPLOYEE_TABLE.ID IN " +
+                    "( select EMP_ID FROM SHIFT_TABLE join DATE_TABLE on SHIFT_TABLE.DATE = DATE_TABLE.DATE " +
+                    "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + type + "')"  +
+                    " and EMPLOYEE_TABLE.TrainedAM = 'Y' and EMPLOYEE_TABLE.TrainedPM = 'Y'";
+            if (result.getCount() == 0) {result.close(); return false;}
+            else {result.close(); return true;}
         }
     }
 }

@@ -14,6 +14,13 @@
     <string name="opening">OPENING</string>
     <string name="assigned">ASSIGNED</string>
     <string name="available">AVAILABLE</string>
+    <string name="fullday">Full-day</string>
+    <string name="Fullday">FULL DAY</string>
+    <string name="Morning">Morning</string>
+    <string name="Afternoon">Afternoon</string>
+    <string name="AM">AM</string>
+    <string name="PM">PM</string>
+    <string name="Trained">Trained for corresponding shift</string> />
 
     <string-array name="days_of_the_week">
         <item>Monday</item>

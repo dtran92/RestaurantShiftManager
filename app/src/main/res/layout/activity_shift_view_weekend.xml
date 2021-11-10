@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_selectedDateWeekend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/pastel_dark_blue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cv_shiftWeekend"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_shiftWeekend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:cardBackgroundColor="@color/pastel_dark_blue"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_selectedDateWeekend"
+        app:layout_constraintBottom_toTopOf="@id/rv_shiftWeekend">
+
+        <TextView
+            android:id="@+id/tv_shiftWeekend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Fullday"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_shiftWeekend"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintBottom_toTopOf="@id/cl_colorCodeWeekend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_shiftWeekend" />
+
+    <ImageButton
+        android:id="@+id/imageButton_editWeekend"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/rv_shiftWeekend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cv_shiftWeekend"
+        app:layout_constraintTop_toBottomOf="@id/tv_selectedDateWeekend"
+        app:srcCompat="@drawable/ic_baseline_edit_24"
+        android:backgroundTint="@color/pastel_red"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_colorCodeWeekend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_shiftWeekend"
+        app:layout_constraintBottom_toTopOf="@id/bt_saveFinalWeekend">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_trainedWeekend"
+            android:layout_width="16dp"
+            android:layout_height="12dp"
+            android:layout_marginBottom="1dp"
+            app:cardBackgroundColor="@color/light_pink"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintBottom_toTopOf="@id/cv_nottrainedWeekend"
+            app:layout_constraintEnd_toStartOf="@id/tv_trainedWeekend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_trainedWeekend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="  Trained"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_nottrainedWeekend"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cv_trainedWeekend"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_nottrainedWeekend"
+            android:layout_width="16dp"
+            android:layout_height="12dp"
+            app:cardBackgroundColor="@color/light_blue"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_nottrainedWeekend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_trainedWeekend" />
+
+        <TextView
+            android:id="@+id/tv_nottrainedWeekend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  Not Trained"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cv_nottrainedWeekend"
+            app:layout_constraintTop_toBottomOf="@id/tv_trainedWeekend" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <CheckBox
+        android:id="@+id/cb_busyWeekend"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Busy Day"
+        android:textAlignment="center"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toEndOf="@+id/cl_colorCodeWeekend"
+        app:layout_constraintTop_toBottomOf="@+id/rv_shiftWeekend"
+        app:layout_constraintBottom_toTopOf="@id/bt_saveFinalWeekend"/>
+
+    <Button
+        android:id="@+id/bt_saveFinalWeekend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_colorCodeWeekend" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

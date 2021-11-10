@@ -15,13 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shiftscheduler.R;
 
-import java.util.List;
-
 public class EmployeeAddEditActivityV2 extends AppCompatActivity {
     EditText et_fname, et_lname, et_email;
     Button bt_save, bt_cancel;
     Employee employee;
-    Switch mon_AM, mon_PM, tue_AM, tue_PM, wed_AM, wed_PM, thu_AM, thu_PM, fri_AM, fri_PM, sat_AM, sat_PM, sun_AM, sun_PM;
+    Switch mon_AM, mon_PM, tue_AM, tue_PM, wed_AM, wed_PM, thu_AM, thu_PM, fri_AM, fri_PM, sat, sun;
     ToggleButton trained_am, trained_pm;
     Database database;
 
@@ -47,10 +45,8 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
         String currThuPM = selectedEmp.getThu_PM();
         String currFriAM = selectedEmp.getFri_AM();
         String currFriPM = selectedEmp.getFri_PM();
-        String currSatAM = selectedEmp.getSat_AM();
-        String currSatPM = selectedEmp.getSat_PM();
-        String currSunAM = selectedEmp.getSun_AM();
-        String currSunPM = selectedEmp.getSun_PM();
+        String currSat = selectedEmp.getSat();
+        String currSun = selectedEmp.getSun();
         String currTrainedAM = selectedEmp.getTrained_am();
         String currTrainedPM = selectedEmp.getTrained_pm();
 
@@ -66,10 +62,8 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
         thu_PM = (Switch) findViewById(R.id.thu_PMv2new);
         fri_AM = (Switch) findViewById(R.id.fri_AMv2new);
         fri_PM = (Switch) findViewById(R.id.fri_PMv2new);
-        sat_AM = (Switch) findViewById(R.id.sat_AMv2new);
-        sat_PM = (Switch) findViewById(R.id.sat_PMv2new);
-        sun_AM = (Switch) findViewById(R.id.sun_AMv2new);
-        sun_PM = (Switch) findViewById(R.id.sun_PMv2new);
+        sat = (Switch) findViewById(R.id.sat_v2new);
+        sun = (Switch) findViewById(R.id.sun_v2new);
 
         setSwitch(mon_AM, currMonAM);
         setSwitch(mon_PM, currMonPM);
@@ -81,10 +75,8 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
         setSwitch(thu_PM, currThuPM);
         setSwitch(fri_AM, currFriAM);
         setSwitch(fri_PM, currFriPM);
-        setSwitch(sat_AM, currSatAM);
-        setSwitch(sat_PM, currSatPM);
-        setSwitch(sun_AM, currSunAM);
-        setSwitch(sun_PM, currSunPM);
+        setSwitch(sat, currSat);
+        setSwitch(sun, currSun);
         setToggle(trained_am, currTrainedAM);
         setToggle(trained_pm, currTrainedPM);
 
@@ -115,17 +107,15 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
                 String thuPM = checkSwitch(thu_PM);
                 String friAM = checkSwitch(fri_AM);
                 String friPM = checkSwitch(fri_PM);
-                String satAM = checkSwitch(sat_AM);
-                String satPM = checkSwitch(sat_PM);
-                String sunAM = checkSwitch(sun_AM);
-                String sunPM = checkSwitch(sun_PM);
+                String satAv = checkSwitch(sat);
+                String sunAv = checkSwitch(sun);
 
                 // id = -1 meaning adding new employee
                 if (id == -1) {
                     if (checkMissing(updatedFname, updatedLname, updatedEmail) || checkDup(updatedFname, updatedLname, updatedEmail)) {
                     } else {
                         database.addOneEmployee(new Employee(id, updatedFname, updatedLname, updatedEmail, trained_AM, trained_PM,
-                                monAM, monPM, tueAM, tuePM, wedAM, wedPM, thuAM, thuPM, friAM, friPM, satAM, satPM, sunAM, sunPM));
+                                monAM, monPM, tueAM, tuePM, wedAM, wedPM, thuAM, thuPM, friAM, friPM, satAv, sunAv));
                     }
                 }
 
@@ -134,7 +124,7 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
                     if (checkMissing(updatedFname, updatedLname, updatedEmail)) {
                     } else {
                         database.updateOneEmployee(new Employee(id, updatedFname, updatedLname, updatedEmail, trained_AM, trained_PM,
-                                monAM, monPM, tueAM, tuePM, wedAM, wedPM, thuAM, thuPM, friAM, friPM, satAM, satPM, sunAM, sunPM));
+                                monAM, monPM, tueAM, tuePM, wedAM, wedPM, thuAM, thuPM, friAM, friPM, satAv, sunAv));
                     }
                 }
                 backToEmp();

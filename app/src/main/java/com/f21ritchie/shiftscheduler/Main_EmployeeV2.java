@@ -47,7 +47,7 @@ public class Main_EmployeeV2 extends Fragment implements View.OnClickListener, R
         View view = inflater.inflate(R.layout.frag_employee_v2, container, false);
         database = new Database(getContext());
         list = database.getAllEmployees();
-        rv_emp = (RecyclerView) view.findViewById(R.id.rv_empV2);
+        rv_emp = view.findViewById(R.id.rv_empV2);
         rv_emp.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerAdapter = new RecyclerAdapter(list);
         recyclerAdapter.setOnEmployeeListener(this);
@@ -68,7 +68,6 @@ public class Main_EmployeeV2 extends Fragment implements View.OnClickListener, R
                 }
             }
         });
-
         return view;
     }
 
@@ -83,19 +82,21 @@ public class Main_EmployeeV2 extends Fragment implements View.OnClickListener, R
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
             Employee selectedEmp = database.getAllEmployees().get(position);
-            list.remove(selectedEmp);
             new AlertDialog.Builder(getContext())
                     .setMessage("Delete this employee?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             database.deleteOneEmployee(selectedEmp);
+                            list.remove(selectedEmp);
+                            recyclerAdapter.setEmpList(list);
                             recyclerAdapter.setOnEmployeeListener(Main_EmployeeV2.this);
                             rv_emp.setAdapter(recyclerAdapter);
                         }
                     })
                     .setNegativeButton("No", null)
                     .show();
+            recyclerAdapter.notifyDataSetChanged();
 
         }
     };

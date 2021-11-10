@@ -19,10 +19,8 @@ public class Employee {
     String thu_PM;
     String fri_AM;
     String fri_PM;
-    String sat_AM;
-    String sat_PM;
-    String sun_AM;
-    String sun_PM;
+    String sat;
+    String sun;
 
     public Employee(int id, String firstName, String lastName, String email) {
         this.id = id;
@@ -35,8 +33,7 @@ public class Employee {
                     String trained_am, String trained_pm,
                     String mon_AM, String mon_PM, String tue_AM, String tue_PM,
                     String wed_AM, String wed_PM, String thu_AM, String thu_PM,
-                    String fri_AM, String fri_PM, String sat_AM, String sat_PM,
-                    String sun_AM, String sun_PM) {
+                    String fri_AM, String fri_PM, String sat, String sun) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,10 +50,8 @@ public class Employee {
         this.thu_PM = thu_PM;
         this.fri_AM = fri_AM;
         this.fri_PM = fri_PM;
-        this.sat_AM = sat_AM;
-        this.sat_PM = sat_PM;
-        this.sun_AM = sun_AM;
-        this.sun_PM = sun_PM;
+        this.sat = sat;
+        this.sun = sun;
     }
 
     public Employee() {}
@@ -105,119 +100,71 @@ public class Employee {
         return mon_AM;
     }
 
-    public void setMon_AM(String new_mon_AM) {
-        this.mon_AM = new_mon_AM;
-    }
 
     public String getMon_PM() {
         return mon_PM;
     }
 
-    public void setMon_PM(String new_mon_PM) {
-        this.mon_PM = new_mon_PM;
-    }
 
     //tue
     public String getTue_AM() {
         return tue_AM;
     }
 
-    public void setTue_AM(String new_tue_AM) {
-        this.tue_AM = new_tue_AM;
-    }
 
     public String getTue_PM() {
         return tue_PM;
     }
 
-    public void setTue_PM(String new_tue_PM) {
-        this.tue_PM = new_tue_PM;
-    }
 
     //wed
     public String getWed_AM() {
         return wed_AM;
     }
 
-    public void setWed_AM(String new_wed_AM) {
-        this.wed_AM = new_wed_AM;
-    }
+
 
     public String getWed_PM() {
         return wed_PM;
     }
 
-    public void setWed_PM(String new_wed_PM) {
-        this.wed_PM = new_wed_PM;
-    }
+
 
     //thu
     public String getThu_AM() {
         return thu_AM;
     }
 
-    public void setThu_AM(String new_thu_AM) {
-        this.thu_AM = new_thu_AM;
-    }
+
 
     public String getThu_PM() {
         return thu_PM;
     }
 
-    public void setThu_PM(String new_thu_PM) {
-        this.thu_PM = new_thu_PM;
-    }
+
 
     //fri
     public String getFri_AM() {
         return fri_AM;
     }
 
-    public void setFri_AM(String new_fri_AM) {
-        this.fri_AM = new_fri_AM;
-    }
+
 
     public String getFri_PM() {
         return fri_PM;
     }
 
-    public void setFri_PM(String new_fri_PM) {
-        this.fri_PM = new_fri_PM;
+
+
+    public String getSat() {
+        return sat;
     }
 
-    //sat
-    public String getSat_AM() {
-        return sat_AM;
+    public String getSun() {
+        return sun;
     }
 
-    public void setSat_AM(String new_sat_AM) {
-        this.sat_AM = new_sat_AM;
-    }
 
-    public String getSat_PM() {
-        return sat_PM;
-    }
-
-    public void setSat_PM(String new_sat_PM) {
-        this.sat_PM = new_sat_PM;
-    }
-
-    //sun
-    public String getSun_AM() {
-        return sun_AM;
-    }
-
-    public void setSun_AM(String new_sun_AM) {
-        this.sun_AM = new_sun_AM;
-    }
-
-    public String getSun_PM() {
-        return sun_PM;
-    }
-
-    public void setSun_PM(String new_sun_PM) {
-        this.sun_PM = new_sun_PM;
-    }
 
     @Override
     public String toString() {

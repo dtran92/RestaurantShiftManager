@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -97,8 +98,15 @@ public class Main_Calendar extends Fragment implements CalendarAdapter.OnItemLis
         if (date == null) {}
         else {
         CalendarUtils.selectedDate = date;
-        Intent intent = new Intent(getActivity(), ShiftViewActivity.class);
-        activityResultLauncher.launch(intent);}
+
+        // weekend
+        if (date.getDayOfWeek().equals(DayOfWeek.SATURDAY) || date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+            activityResultLauncher.launch(new Intent(getActivity(), ShiftViewActivityWeekend.class));
+        }
+        //weekday
+        else {
+            activityResultLauncher.launch(new Intent(getActivity(), ShiftViewActivity.class));
+        }}
     }
 
     @Override

@@ -16,10 +16,16 @@
             android:name="com.f21ritchie.shiftscheduler.ShiftViewActivity"
             android:exported="true" />
         <activity
+            android:name="com.f21ritchie.shiftscheduler.ShiftViewActivityWeekend"
+            android:exported="true" />
+        <activity
             android:name="com.f21ritchie.shiftscheduler.ShiftEditActivityAM"
             android:exported="true" />
         <activity
             android:name="com.f21ritchie.shiftscheduler.ShiftEditActivityPM"
+            android:exported="true" />
+        <activity
+            android:name="com.f21ritchie.shiftscheduler.ShiftEditActivityWeekend"
             android:exported="true" />
         <activity
             android:name="com.f21ritchie.shiftscheduler.MainActivity"

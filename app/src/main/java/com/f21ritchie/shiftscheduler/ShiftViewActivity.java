@@ -106,7 +106,7 @@ public class ShiftViewActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
-    void setUpRecyclerView() {
+    public void setUpRecyclerView() {
         list_assignedAM = database.getEmpForSelectShift(CalendarUtils.selectedDate, "AM");
         rv_AM.setLayoutManager(new LinearLayoutManager(this));
         recyclerAdapter_AMassigned = new RecyclerAdapterColourAMAssigned(list_assignedAM);

@@ -139,7 +139,7 @@
                 android:id="@+id/mon_AMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opening"
+                android:text="@string/AM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +151,7 @@
                 android:id="@+id/mon_PMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Closing"
+                android:text="@string/PM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -186,7 +186,7 @@
                 android:id="@+id/tue_AMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opening"
+                android:text="@string/AM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -198,7 +198,7 @@
                 android:id="@+id/tue_PMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Closing"
+                android:text="@string/PM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -233,7 +233,7 @@
                 android:id="@+id/wed_AMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opening"
+                android:text="@string/AM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -245,7 +245,7 @@
                 android:id="@+id/wed_PMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Closing"
+                android:text="@string/PM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -281,7 +281,7 @@
                 android:id="@+id/thu_AMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opening"
+                android:text="@string/AM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -293,7 +293,7 @@
                 android:id="@+id/thu_PMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Closing"
+                android:text="@string/PM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -328,7 +328,7 @@
                 android:id="@+id/fri_AMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opening"
+                android:text="@string/AM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -340,7 +340,7 @@
                 android:id="@+id/fri_PMv2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Closing"
+                android:text="@string/PM"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -366,34 +366,22 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/sat_AMv2new"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/sat_v2new"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Switch
-                android:id="@+id/sat_AMv2new"
+                android:id="@+id/sat_v2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opening"
-                android:thumbTint="@drawable/thumb"
-                android:trackTint="@drawable/track"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/sat_PMv2new"
-                app:layout_constraintStart_toEndOf="@id/satv2new"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Switch
-                android:id="@+id/sat_PMv2new"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Closing"
+                android:text="@string/fullday"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/sat_AMv2new"
+                app:layout_constraintStart_toEndOf="@id/satv2new"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -413,34 +401,22 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/sun_AMv2new"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/sun_v2new"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Switch
-                android:id="@+id/sun_AMv2new"
+                android:id="@+id/sun_v2new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opening"
-                android:thumbTint="@drawable/thumb"
-                android:trackTint="@drawable/track"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/sun_PMv2new"
-                app:layout_constraintStart_toEndOf="@id/sunv2new"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Switch
-                android:id="@+id/sun_PMv2new"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Closing"
+                android:text="@string/fullday"
                 android:thumbTint="@drawable/thumb"
                 android:trackTint="@drawable/track"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/sun_AMv2new"
+                app:layout_constraintStart_toEndOf="@id/sunv2new"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
