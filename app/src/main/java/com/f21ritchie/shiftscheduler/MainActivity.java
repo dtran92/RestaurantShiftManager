@@ -18,20 +18,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int position = 0;
-
         TabLayout tabLayout = findViewById(R.id.tl_main);
         ViewPager2 viewPager2 = findViewById(R.id.vp2_main);
 
 
         Main_ViewPagerAdapter adapter = new Main_ViewPagerAdapter(this);
 
-        if (getIntent().getExtras() == null);
-        else {position = getIntent().getExtras().getInt("position");}
-
         viewPager2.setAdapter(adapter);
-        viewPager2.setCurrentItem(position, false);
-
 
         new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override

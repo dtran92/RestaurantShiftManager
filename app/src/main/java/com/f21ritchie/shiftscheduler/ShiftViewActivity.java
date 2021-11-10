@@ -1,5 +1,6 @@
 package com.f21ritchie.shiftscheduler;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,10 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +38,9 @@ public class ShiftViewActivity extends AppCompatActivity implements View.OnClick
     TextView tv_selectedDate;
     CheckBox cb_busy;
     Button bt_save;
+    String isBusy;
+    ActivityResultLauncher<Intent> activityResultLauncher;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,10 +66,10 @@ public class ShiftViewActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onClick(View view) {
                 if (cb_busy.isChecked()) {
-                    database.updateDate(CalendarUtils.selectedDate, "Y");
+                    isBusy = "Y";
                 }
                 else {
-                    database.updateDate(CalendarUtils.selectedDate, "N");
+                    isBusy = "N";
                 }
             }
         });
@@ -72,8 +80,28 @@ public class ShiftViewActivity extends AppCompatActivity implements View.OnClick
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShiftViewActivity.this, MainActivity.class));
+                database.updateIfExistElseAdd(CalendarUtils.selectedDate, isBusy);
+                Intent intent = new Intent();
+                setResult(Activity.RESULT_OK, intent);
+                ShiftViewActivity.super.onBackPressed();
                 finish();
+            }
+        });
+
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    list_assignedAM = database.getEmpForSelectShift(CalendarUtils.selectedDate, "AM");
+                    recyclerAdapter_AMassigned.setEmpList(list_assignedAM);
+                    recyclerAdapter_AMassigned.notifyDataSetChanged();
+                    rv_AM.setAdapter(recyclerAdapter_AMassigned);
+
+                    list_assignedPM = database.getEmpForSelectShift(CalendarUtils.selectedDate, "PM");
+                    recyclerAdapter_PMassigned.setEmpList(list_assignedPM);
+                    recyclerAdapter_PMassigned.notifyDataSetChanged();
+                    rv_PM.setAdapter(recyclerAdapter_PMassigned);
+                }
             }
         });
     }
@@ -95,30 +123,23 @@ public class ShiftViewActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()) {
             case R.id.imageButton_editAM:
                 Intent intent = new Intent(this, ShiftEditActivityAM.class);
-                startActivity(intent);
-                finish();
+                activityResultLauncher.launch(intent);
         }
         switch (view.getId()) {
             case R.id.imageButton_editPM:
                 Intent intent = new Intent(this, ShiftEditActivityPM.class);
-                startActivity(intent);
-                finish();
+                activityResultLauncher.launch(intent);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
     }
 
     public void setCheckBox() {
         if (database.isBusy(CalendarUtils.selectedDate)) {
             cb_busy.setChecked(true);
+            isBusy = "Y";
         }
         else {
             cb_busy.setChecked(false);
+            isBusy = "N";
         }
     }
 }

@@ -69,6 +69,10 @@ public class RecyclerAdapterColourAMAvai extends RecyclerView.Adapter<RecyclerAd
         }
     }
 
+    public void setEmpList(List<Employee> empList) {
+        this.empList = empList;
+    }
+
     public interface OnEmployeeListener{
         void onEmployeeClickAvai(int position);
     }

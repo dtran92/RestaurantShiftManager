@@ -2,6 +2,7 @@ package com.f21ritchie.shiftscheduler.Adapters;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     public final TextView dayOfMonth;
     private final CalendarAdapter.OnItemListener onItemListener;
     Database database;
+    ImageView imageView;
 
     public CalendarViewHolder(@NonNull View itemView, CalendarAdapter.OnItemListener onItemListener, ArrayList<LocalDate> days)
     {
@@ -31,6 +33,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         itemView.setOnClickListener(this);
         this.days = days;
         database = new Database(itemView.getContext());
+        imageView = itemView.findViewById(R.id.imageView_check);
     }
 
     @Override

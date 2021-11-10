@@ -1,5 +1,6 @@
 package com.f21ritchie.shiftscheduler;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -125,7 +126,6 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
                     } else {
                         database.addOneEmployee(new Employee(id, updatedFname, updatedLname, updatedEmail, trained_AM, trained_PM,
                                 monAM, monPM, tueAM, tuePM, wedAM, wedPM, thuAM, thuPM, friAM, friPM, satAM, satPM, sunAM, sunPM));
-                        backToEmp();
                     }
                 }
 
@@ -135,9 +135,9 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
                     } else {
                         database.updateOneEmployee(new Employee(id, updatedFname, updatedLname, updatedEmail, trained_AM, trained_PM,
                                 monAM, monPM, tueAM, tuePM, wedAM, wedPM, thuAM, thuPM, friAM, friPM, satAM, satPM, sunAM, sunPM));
-                        backToEmp();
                     }
                 }
+                backToEmp();
             }
         });
 
@@ -185,9 +185,9 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
     }
 
     public void backToEmp() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("position", 1);
-        startActivity(intent);
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_OK, intent);
+        EmployeeAddEditActivityV2.super.onBackPressed();
         finish();
     }
 
@@ -211,12 +211,4 @@ public class EmployeeAddEditActivityV2 extends AppCompatActivity {
         return false;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("position", 1);
-        startActivity(intent);
-        finish();
-    }
 }

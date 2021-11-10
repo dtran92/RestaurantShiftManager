@@ -33,8 +33,9 @@
             android:layout_height="wrap_content"
             android:text="Feb 2021"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:textAlignment="center"
-            android:textColor="@color/black"/>
+            android:textColor="@color/pastel_dark_blue"/>
 
         <Button
             android:id="@+id/bt_forCal"

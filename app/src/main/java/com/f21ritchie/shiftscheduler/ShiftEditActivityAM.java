@@ -1,5 +1,6 @@
 package com.f21ritchie.shiftscheduler;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -63,7 +64,15 @@ public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAd
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         database.addOneEmpToShift(selectedEmp, CalendarUtils.selectedDate, "AM");
-                        setUpRecyclerView();
+                        list_avai.remove(selectedEmp);
+                        recyclerAdapter_avai.setEmpList(list_avai);
+                        recyclerAdapter_avai.notifyDataSetChanged();
+                        rv_avai.setAdapter(recyclerAdapter_avai);
+
+                        list_assigned.add(selectedEmp);
+                        recyclerAdapter_assigned.setEmpList(list_assigned);
+                        recyclerAdapter_assigned.notifyDataSetChanged();
+                        rv_assigned.setAdapter(recyclerAdapter_assigned);
                     }
                 })
                 .setNegativeButton("No", null)
@@ -79,7 +88,15 @@ public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAd
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         database.deleteOneEmpFromShift(selectedEmp, CalendarUtils.selectedDate, "AM");
-                        setUpRecyclerView();
+                        list_assigned.remove(selectedEmp);
+                        recyclerAdapter_assigned.setEmpList(list_assigned);
+                        recyclerAdapter_assigned.notifyDataSetChanged();
+                        rv_assigned.setAdapter(recyclerAdapter_assigned);
+
+                        list_avai.add(selectedEmp);
+                        recyclerAdapter_avai.setEmpList(list_avai);
+                        recyclerAdapter_avai.notifyDataSetChanged();
+                        rv_avai.setAdapter(recyclerAdapter_avai);
                     }
                 })
                 .setNegativeButton("No", null)
@@ -90,18 +107,11 @@ public class ShiftEditActivityAM extends AppCompatActivity implements RecyclerAd
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_saveShift:
-                Intent intent = new Intent(this, ShiftViewActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent();
+                setResult(Activity.RESULT_OK, intent);
+                ShiftEditActivityAM.super.onBackPressed();
                 finish();
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, ShiftViewActivity.class);
-        startActivity(intent);
-        finish();
     }
 }
 

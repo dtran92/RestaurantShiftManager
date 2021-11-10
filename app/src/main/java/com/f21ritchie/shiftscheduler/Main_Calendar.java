@@ -1,5 +1,6 @@
 package com.f21ritchie.shiftscheduler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -35,6 +40,10 @@ public class Main_Calendar extends Fragment implements CalendarAdapter.OnItemLis
     Context thiscontext;
     Button bt_backward, bt_forward, bt_viewV2;
     Database database;
+    ActivityResultLauncher<Intent> activityResultLauncher;
+    ArrayList<LocalDate> daysInMonth;
+    CalendarAdapter calendarAdapter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +64,16 @@ public class Main_Calendar extends Fragment implements CalendarAdapter.OnItemLis
 
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
+
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode() == Activity.RESULT_OK)
+                {
+                    calendarRecyclerView.setAdapter(calendarAdapter);
+                }
+            }
+        });
 
         return view;
     }
@@ -77,12 +96,9 @@ public class Main_Calendar extends Fragment implements CalendarAdapter.OnItemLis
 
         if (date == null) {}
         else {
-
         CalendarUtils.selectedDate = date;
         Intent intent = new Intent(getActivity(), ShiftViewActivity.class);
-
-        startActivity(intent);
-        getActivity().finish();}
+        activityResultLauncher.launch(intent);}
     }
 
     @Override
@@ -93,8 +109,8 @@ public class Main_Calendar extends Fragment implements CalendarAdapter.OnItemLis
 
     private void setMonthView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
-        ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
+        calendarAdapter = new CalendarAdapter(daysInMonth, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(thiscontext, 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);

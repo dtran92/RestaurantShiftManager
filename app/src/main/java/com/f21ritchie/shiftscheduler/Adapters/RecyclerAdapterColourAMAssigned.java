@@ -74,6 +74,10 @@ public class RecyclerAdapterColourAMAssigned extends RecyclerView.Adapter<Recycl
         }
     }
 
+    public void setEmpList(List<Employee> empList) {
+        this.empList = empList;
+    }
+
     public interface OnEmployeeListener{
         void onEmployeeClickAssigned(int position);
     }

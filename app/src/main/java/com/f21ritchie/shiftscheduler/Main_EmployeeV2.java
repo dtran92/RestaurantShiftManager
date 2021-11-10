@@ -1,13 +1,19 @@
 package com.f21ritchie.shiftscheduler;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -28,6 +34,7 @@ public class Main_EmployeeV2 extends Fragment implements View.OnClickListener, R
     FloatingActionButton fb_add;
     List<Employee> list;
     Database database;
+    ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,15 +56,20 @@ public class Main_EmployeeV2 extends Fragment implements View.OnClickListener, R
         fb_add = view.findViewById(R.id.fb_add);
         fb_add.setOnClickListener(this);
 
-        return view;
-    }
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    list = database.getAllEmployees();
+                    recyclerAdapter.setEmpList(list);
+                    recyclerAdapter.notifyDataSetChanged();
+                    recyclerAdapter.setOnEmployeeListener(Main_EmployeeV2.this);
+                    rv_emp.setAdapter(recyclerAdapter);
+                }
+            }
+        });
 
-    public void refreshRecyclerView() {
-        list = database.getAllEmployees();
-        rv_emp.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerAdapter = new RecyclerAdapter(list);
-        recyclerAdapter.setOnEmployeeListener(this);
-        rv_emp.setAdapter(recyclerAdapter);
+        return view;
     }
 
     // delete by swiping left or right
@@ -69,19 +81,22 @@ public class Main_EmployeeV2 extends Fragment implements View.OnClickListener, R
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            Employee selectedEmp = database.getAllEmployees().get(viewHolder.getAdapterPosition());
+            int position = viewHolder.getAdapterPosition();
+            Employee selectedEmp = database.getAllEmployees().get(position);
+            list.remove(selectedEmp);
             new AlertDialog.Builder(getContext())
                     .setMessage("Delete this employee?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             database.deleteOneEmployee(selectedEmp);
-                            refreshRecyclerView();
+                            recyclerAdapter.setOnEmployeeListener(Main_EmployeeV2.this);
+                            rv_emp.setAdapter(recyclerAdapter);
                         }
                     })
                     .setNegativeButton("No", null)
                     .show();
-            recyclerAdapter.notifyDataSetChanged();
+
         }
     };
 
@@ -91,8 +106,7 @@ public class Main_EmployeeV2 extends Fragment implements View.OnClickListener, R
             case R.id.fb_add:
                 Intent intent = new Intent(getActivity(), EmployeeAddEditActivityV2.class);
                 intent.putExtra("id", -1);
-                startActivity(intent);
-                getActivity().finish();
+                activityResultLauncher.launch(intent);
         }
     }
 
@@ -102,7 +116,6 @@ public class Main_EmployeeV2 extends Fragment implements View.OnClickListener, R
         Employee selectedEmployee = database.getAllEmployees().get(position);
         Intent intent = new Intent(getActivity(), EmployeeAddEditActivityV2.class);
         intent.putExtra("id", selectedEmployee.getId());
-        startActivity(intent);
-        getActivity().finish();
+        activityResultLauncher.launch(intent);
     }
 }

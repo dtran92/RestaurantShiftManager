@@ -59,6 +59,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         this.onEmployeeListener = onEmployeeListener;
     }
 
+    public void setEmpList(List<Employee> empList) {
+        this.empList = empList;
+    }
+
     public interface OnEmployeeListener{
         void onEmployeeClick(int position);
     }

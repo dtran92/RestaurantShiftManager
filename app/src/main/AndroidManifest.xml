@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShiftScheduler">
         <activity
-            android:name="com.f21ritchie.shiftscheduler.EmployeeAddEditActivity"
-            android:exported="true" />
-        <activity
             android:name="com.f21ritchie.shiftscheduler.EmployeeAddEditActivityV2"
             android:exported="true" />
         <activity

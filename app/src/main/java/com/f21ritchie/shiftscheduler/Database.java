@@ -388,14 +388,15 @@ public class Database extends SQLiteOpenHelper {
         // no date for this in the database
         if (result.getCount() == 0) {
             if (localDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) || localDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-                addOneDate(localDate, "Y");
+                //addOneDate(localDate, "Y");
                 return true;
             }
             else {
-                addOneDate(localDate, "N");
+                //addOneDate(localDate, "N");
                 return false;
             }
         }
+
         else {
             result.moveToFirst();
             if (result.getString(result.getColumnIndex(DATE_BUSY)).equals("Y")) {
@@ -412,5 +413,67 @@ public class Database extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(DATE_BUSY, isBusy);
         database.update(DATE_TABLE, cv, DATE_DATE + " = ?", new String[]{String.valueOf(CalendarUtils.formattedDate(selectedDate))});
+    }
+
+    public void updateIfExistElseAdd (LocalDate selectedDate, String isBusy) {
+        database = this.getWritableDatabase();
+
+        String query = "SELECT * FROM " + DATE_TABLE + " WHERE DATE_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(selectedDate) + "'";
+
+        Cursor result = database.rawQuery(query, null);
+
+        if (result.getCount() == 0) {
+            addOneDate(selectedDate, isBusy);
+        }
+        else {
+            updateDate(selectedDate, isBusy);
+        }
+    }
+
+    // check if both shifts are ready for a date
+    public boolean isReadyDate (LocalDate date) {
+        database = this.getReadableDatabase();
+
+        if (isReadyShift(date, "AM") && isReadyShift(date, "PM")) {
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean isReadyShift (LocalDate date, String AMPM) {
+        database = this.getReadableDatabase();
+        String colCheck;
+        if (AMPM.equals("AM")) colCheck = "TrainedAM";
+        else colCheck = "TrainedPM";
+
+        String query = "select * FROM SHIFT_TABLE join DATE_TABLE on SHIFT_TABLE.DATE = DATE_TABLE.DATE " +
+                "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + AMPM + "'";
+        Cursor result = database.rawQuery(query, null);
+
+        // busy ==> at least 3 employees
+        if (isBusy(date)) {
+            // less than 3
+            if (result.getCount() < 3) return false;
+            // >=3 --> check if at least one is trained
+                query = "select ID from EMPLOYEE_TABLE where EMPLOYEE_TABLE.ID IN " +
+                        "( select EMP_ID FROM SHIFT_TABLE join DATE_TABLE on SHIFT_TABLE.DATE = DATE_TABLE.DATE " +
+                        "where SHIFT_TABLE.DATE = " + "'" + CalendarUtils.formattedDate(date) + "'" + " and SHIFT_TABLE.TYPE = " + "'" + AMPM + "')" + " and " + colCheck + " = 'Y'";
+                result = database.rawQuery(query, null);
+                // no trained emp for that shift
+                if (result.getCount() == 0) return false;
+                else return true;
+        }
+
+        else {
+            if (result.getCount() < 2) return false;
+            // >=3 --> check if at least one is trained
+            query = "select ID from EMPLOYEE_TABLE where EMPLOYEE_TABLE.ID IN " +
+                    "( select EMP_ID FROM SHIFT_TABLE join DATE_TABLE on SHIFT_TABLE.DATE = DATE_TABLE.DATE " +
+                    "where SHIFT_TABLE.DATE = '01 November 2021' and SHIFT_TABLE.TYPE = 'AM') and " + colCheck + " = 'Y'";
+            result = database.rawQuery(query, null);
+            // no trained emp for that shift
+            if (result.getCount() == 0) return false;
+            else return true;
+        }
     }
 }
