@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -162,23 +161,23 @@
         android:id="@+id/imageButton_editAM"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/pastel_red"
         app:layout_constraintBottom_toTopOf="@id/rv_shiftAM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cv_shiftAM"
         app:layout_constraintTop_toBottomOf="@+id/tv_selectedDate"
-        app:srcCompat="@drawable/ic_baseline_edit_24"
-        android:backgroundTint="@color/pastel_red"/>
+        app:srcCompat="@drawable/ic_baseline_edit_24" />
 
     <ImageButton
         android:id="@+id/imageButton_editPM"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/pastel_red"
         app:layout_constraintBottom_toTopOf="@+id/rv_shiftPM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cv_shiftPM"
         app:layout_constraintTop_toBottomOf="@+id/rv_shiftAM"
-        app:srcCompat="@drawable/ic_baseline_edit_24"
-        android:backgroundTint="@color/pastel_red"/>
+        app:srcCompat="@drawable/ic_baseline_edit_24" />
 
     <Button
         android:id="@+id/bt_saveFinal"

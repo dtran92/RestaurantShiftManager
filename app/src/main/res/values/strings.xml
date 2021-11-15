@@ -20,7 +20,9 @@
     <string name="Afternoon">Afternoon</string>
     <string name="AM">AM</string>
     <string name="PM">PM</string>
-    <string name="Trained">Trained for corresponding shift</string> />
+    <string name="Trained">Trained for corresponding shift</string>
+    <string name="Ready">Ready for operation</string>
+    />
 
     <string-array name="days_of_the_week">
         <item>Monday</item>

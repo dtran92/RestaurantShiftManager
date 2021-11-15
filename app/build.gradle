@@ -6,7 +6,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "com.example.shiftscheduler"
+        applicationId "com.f21_ritchie.shiftscheduler"
         minSdk 30
         targetSdk 30
         versionCode 1
