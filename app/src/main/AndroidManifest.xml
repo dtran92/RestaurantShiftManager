@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.f21_ritchie.shiftscheduler">
+    package="com.dtran92.shiftmanager">
 
     <application
         android:allowBackup="true"
@@ -10,25 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShiftScheduler">
         <activity
-            android:name="com.f21_ritchie.shiftscheduler.EmployeeAddEditActivity"
+            android:name="com.dtran92.shiftmanager.EmployeeAddEditActivity"
             android:exported="true" />
         <activity
-            android:name="com.f21_ritchie.shiftscheduler.ShiftViewActivity"
+            android:name="com.dtran92.shiftmanager.ShiftViewActivity"
             android:exported="true" />
         <activity
-            android:name="com.f21_ritchie.shiftscheduler.ShiftViewActivityWeekend"
+            android:name="com.dtran92.shiftmanager.ShiftViewActivityWeekend"
             android:exported="true" />
         <activity
-            android:name="com.f21_ritchie.shiftscheduler.ShiftEditActivityAM"
+            android:name="com.dtran92.shiftmanager.ShiftEditActivityAM"
             android:exported="true" />
         <activity
-            android:name="com.f21_ritchie.shiftscheduler.ShiftEditActivityPM"
+            android:name="com.dtran92.shiftmanager.ShiftEditActivityPM"
             android:exported="true" />
         <activity
-            android:name="com.f21_ritchie.shiftscheduler.ShiftEditActivityWeekend"
+            android:name="com.dtran92.shiftmanager.ShiftEditActivityWeekend"
             android:exported="true" />
         <activity
-            android:name="com.f21_ritchie.shiftscheduler.MainActivity"
+            android:name="com.dtran92.shiftmanager.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
