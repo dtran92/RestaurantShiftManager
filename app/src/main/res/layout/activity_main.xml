@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="@color/blue"
-        app:tabTextColor="@color/white"></com.google.android.material.tabs.TabLayout>
+        app:tabIndicatorColor="@color/light_blue"
+        app:tabTextColor="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,15 +49,10 @@ public class RecyclerAdapterColourPMAssigned extends RecyclerView.Adapter<Recycl
         ImageView trained_AM = holder.trained_AM;
         if (empList.get(position).getTrained_pm().equals("Y")) {
             trained_PM.setVisibility(View.VISIBLE);
-            //cv_emp.setCardBackgroundColor(Color.parseColor("#36508A"));
-
         }
-        if(empList.get(position).getTrained_am().equals("Y")) {
+        if (empList.get(position).getTrained_am().equals("Y")) {
             trained_AM.setVisibility(View.VISIBLE);
         }
-        //else {
-            //cv_emp.setCardBackgroundColor(Color.parseColor("#FA5C53"));
-        //}
     }
 
     @Override

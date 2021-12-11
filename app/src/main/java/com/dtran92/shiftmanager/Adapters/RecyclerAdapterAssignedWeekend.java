@@ -46,14 +46,12 @@ public class RecyclerAdapterAssignedWeekend extends RecyclerView.Adapter<Recycle
         holder.email.setText(email);
         ImageView trained_AM = holder.trained_AM;
         ImageView trained_PM = holder.trained_PM;
-        if (empList.get(position).getTrained_am().equals("Y") && empList.get(position).getTrained_pm().equals("Y")) {
+        if (empList.get(position).getTrained_am().equals("Y")) {
             trained_AM.setVisibility(View.VISIBLE);
-            trained_PM.setVisibility(View.VISIBLE);
-            //cv_emp.setCardBackgroundColor(Color.parseColor("#FFB5B5"));
         }
-        //else {
-            //cv_emp.setCardBackgroundColor(Color.parseColor("#A2D1E6"));
-        //}
+        if (empList.get(position).getTrained_pm().equals("Y")) {
+            trained_PM.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
